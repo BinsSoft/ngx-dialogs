@@ -12,6 +12,8 @@ export class HomeComponent implements OnInit {
   subAlertObj:any = new Ngxalert;
   confirmAlert:any = new Ngxalert;
   staticBackgroundDialog:any = new Ngxalert;
+  modalDialogConfig:any = null;
+  lightBoxDialogConfig:any = new Ngxalert;
   constructor() { }
 
   ngOnInit() {
@@ -91,4 +93,17 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  openModalDialog() {
+    this.modalDialogConfig = {};
+    this.modalDialogConfig['title'] = 'Simple Modal';
+    this.modalDialogConfig['type'] = 'M';
+    this.modalDialogConfig['static'] = true;
+    // this.modalDialogConfig['id'] = 'simple-ngx-modal';
+  }
+  openLightBoxDialog() {
+    this.staticBackgroundDialog.create({
+      // "src": 'assets/img-thumb.jpg'
+      "src": 'assets/img.jpeg'
+    });
+  }
 }

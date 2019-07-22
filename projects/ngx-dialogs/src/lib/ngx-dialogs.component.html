@@ -1,0 +1,12 @@
+<div *ngIf="config && isShow" class="ngx-dialog {{customCssClass}} {{ dialogTypeClass }}" id="{{ dialogId }}">
+    <div class="ngx-dialog-overlay"></div>
+    <div class="ngx-dialog-content">
+        <div class="ngx-dialog-header">
+            <h4 *ngIf="dialogTitle">{{dialogTitle}}</h4>
+            <span class="close-dialog" (click)="closeDialog()">&#10005;</span>
+        </div>
+        <div class="ngx-dialog-body">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

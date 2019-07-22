@@ -57,10 +57,13 @@ export class Ngxalert {
         if (config.customCssClass) {
             dialogDiv.classList.add(config.customCssClass);
         }
-        let dialogClass = 'd-s';
-        if(config.type) {
-            
-            switch(config.type) {
+        if (!config.src) {
+            let dialogClass = '';
+            let type = 'S';
+            if(config.type ) {
+                type = config.type;
+            }
+            switch(type) {
                 case "M":
                     dialogClass = 'd-m';
                     break;
@@ -74,8 +77,8 @@ export class Ngxalert {
                     dialogClass = 'd-s';
                     break;
             }
+            dialogDiv.classList.add(dialogClass);
         }
-        dialogDiv.classList.add(dialogClass);
 
         dialogDiv.setAttribute('id', id);
 
@@ -110,6 +113,11 @@ export class Ngxalert {
         messageBodyDiv.classList.add('ngx-dialog-body');
         if (config.message) {
             messageBodyDiv.innerText = config.message;
+        } else if(config.src){
+            let imgElement = document.createElement('img');
+            imgElement.classList.add('ngx-dialog-img');
+            imgElement.setAttribute('src', config.src) ;
+            messageBodyDiv.appendChild(imgElement);
         }
         dialogContentDiv.appendChild(messageBodyDiv);
 
@@ -152,14 +160,16 @@ export class Ngxalert {
         .ngx-dialog.d-m .ngx-dialog-content{width: 50%; }
         .ngx-dialog.d-l .ngx-dialog-content{width: 70%; }
         .ngx-dialog.d-xl .ngx-dialog-content{ width:90%;}
-        .ngx-dialog-header {padding: 0px 10px;border-bottom: 1px solid #CCC;margin: 0 10px;}
-        .ngx-dialog-header h4 {padding: 0;margin: 5px;line-height: 26px;color: #585858;}
+        .ngx-dialog-header {padding: 0px 10px;margin: 0 10px;}
+        .ngx-dialog-header h4 {padding: 5px 0 10px 0 ;margin: 5px;line-height: 26px;color: #585858;border-bottom: 1px solid #CCC;}
         .ngx-dialog-header span.close-dialog {position: absolute;top: 10px;right: 10px;color: #CCC;cursor: pointer;}
-        .ngx-dialog-body {padding: 20px 0 10px 0;text-align: center;}
+        .ngx-dialog-body {padding: 20px 0 10px 0;text-align: center;max-height:80vh;overflow-x:hidden;}
+        .ngx-dialog-body img { max-width: 100%;}
         .ngx-dialog-overlay {background: rgba(0,0,0,0.5);position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
         .ngx-dialog-footer {padding: 10px;margin: 0 10px;text-align: right;}
         button.ngx-dialog-btn {background: #d2d2d2;border: none;padding: 5px;margin: 0 2px;border-radius: 3px;min-width: 42px;display: inline-block;outline: none;}
         button.ngx-dialog-btn.ngx-dialog-btn-true {background: #4d84d0;color: #FFF;}
+        .ngx-dialog-img { max-width:100%; max-height:100%;}
         `);
         return true;
     }
