@@ -53,7 +53,7 @@ export class NgxDialogsComponent implements OnChanges {
         this.dialogTitle = this.config.title;
       }
       setTimeout(()=>{
-        if (!this.config.static && document.getElementById(this.dialogId)) {
+        if (!this.config.strict && document.getElementById(this.dialogId)) {
           
           document.getElementById(this.dialogId).getElementsByClassName('ngx-dialog-overlay').item(0).addEventListener('click', (e)=>{
             this.closeDialog();

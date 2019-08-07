@@ -97,7 +97,7 @@ export class Ngxalert {
             titleH4.innerText = config.title;
             headerDiv.appendChild(titleH4);
         }
-        if (config.static) {
+        if (config.strict) {
             let crossBtn = document.createElement('span');
             crossBtn.classList.add('close-dialog')
             crossBtn.innerHTML = '&#10005;';
@@ -145,7 +145,7 @@ export class Ngxalert {
             }
             this.createButtonsList(buttons, id);
         }
-        if (!config.static) {
+        if (!config.strict) {
             let _this = this;
 
             document.getElementById(id).getElementsByClassName('ngx-dialog-overlay').item(0).addEventListener('click', function (e) {
@@ -153,23 +153,72 @@ export class Ngxalert {
             })
         }
         this.setStyle(`
+        .ngx-dialog,.ngx-dialog-overlay {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        .ngx-dialog {
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .ngx-dialog-overlay {
+            position: absolute;
+            z-index: 1;
+            background: rgba(55, 58, 71, 0.9);
+            opacity: 1;
+            transition: opacity 0.3s;
+            pointer-events: auto;
+        }
+        .ngx-dialog-content {
+            width: 50%;
+            background: #fff;
+            padding: 1em;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+            opacity: 0;
+            pointer-events: auto;
+            animation-duration: 0.3s;
+            animation-fill-mode: forwards;
+            animation-name: anim-open;
+        }
         
-        .ngx-dialog {position: absolute;width: 100%;height: 100%;top: 0;left: 0;z-index: 99;}
-        .ngx-dialog-content {position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);background: #FFF;border-radius: 5px;min-height: 100px;z-index:99;padding:10px;}
-        .ngx-dialog.d-s .ngx-dialog-content{width: 300px; }
-        .ngx-dialog.d-m .ngx-dialog-content{width: 50%; }
-        .ngx-dialog.d-l .ngx-dialog-content{width: 70%; }
-        .ngx-dialog.d-xl .ngx-dialog-content{ width:90%;}
         .ngx-dialog-header {padding: 0px 10px;margin: 0 10px;}
         .ngx-dialog-header h4 {padding: 5px 0 10px 0 ;margin: 5px;line-height: 26px;color: #585858;border-bottom: 1px solid #CCC;}
         .ngx-dialog-header span.close-dialog {position: absolute;top: 10px;right: 10px;color: #CCC;cursor: pointer;}
         .ngx-dialog-body {padding: 20px 0 10px 0;text-align: center;max-height:80vh;overflow-x:hidden;}
         .ngx-dialog-body img { max-width: 100%;}
-        .ngx-dialog-overlay {background: rgba(0,0,0,0.5);position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
         .ngx-dialog-footer {padding: 10px;margin: 0 10px;text-align: right;}
         button.ngx-dialog-btn {background: #d2d2d2;border: none;padding: 5px;margin: 0 2px;border-radius: 3px;min-width: 42px;display: inline-block;outline: none;}
         button.ngx-dialog-btn.ngx-dialog-btn-true {background: #4d84d0;color: #FFF;}
         .ngx-dialog-img { max-width:100%; max-height:100%;}
+        @keyframes anim-open {
+            0% { opacity: 0; transform: scale3d(1.1, 1.1, 1); }
+            100% { opacity: 1; transform: scale3d(1, 1, 1); }
+        }
+        @media (max-width: 567px) {
+            .ngx-dialog-content {
+                width: 90%;
+            }
+            .ngx-dialog-content.d-m, .ngx-dialog-content.d-s, .ngx-dialog-content.d-l {
+                width: 90%;
+            }
+        }
+        @media (min-width: 568px) {
+            .ngx-dialog-content {
+                width: 50%;
+            }
+            .ngx-dialog.d-s .ngx-dialog-content{width: 300px; }
+            .ngx-dialog.d-m .ngx-dialog-content{width: 50%; }
+            .ngx-dialog.d-l .ngx-dialog-content{width: 70%; }
+            .ngx-dialog.d-xl .ngx-dialog-content{ width:90%;}
+        }
+        
         `);
         return true;
     }

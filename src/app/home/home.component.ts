@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   alertWithBtnObj:any = new Ngxalert;
   subAlertObj:any = new Ngxalert;
   confirmAlert:any = new Ngxalert;
-  staticBackgroundDialog:any = new Ngxalert;
+  strictBackgroundDialog:any = new Ngxalert;
   modalDialogConfig:any = null;
   lightBoxDialogConfig:any = new Ngxalert;
   constructor() { }
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
     this.alertWithBtnObj.create({
       title: 'Dialog with Buttons',
       message: 'It is a alert box with buttons',
-      static: false,
+      strict: false,
       
       buttons : [
         {
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
     this.confirmAlert = new Ngxalert;
     this.confirmAlert.create({
       title: 'Confirm Dialog',
-      // static : true,
+      // strict : true,
       message: 'It is a confirm dialog box',
       confirm: ()=> {
         alert('you click "yes"');
@@ -84,11 +84,11 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  openstaticBackgroundDialog() {
-    this.staticBackgroundDialog.create({
-      title :'Dialog with static background',
-      message : 'It is a dialog with static backgrond. only close by clicking on "x" ',
-      static: true,
+  openstrictBackgroundDialog() {
+    this.strictBackgroundDialog.create({
+      title :'Dialog with strict background',
+      message : 'It is a dialog with strict backgrond. only close by clicking on "x" ',
+      strict: true,
       type:'M'
     })
   }
@@ -97,11 +97,11 @@ export class HomeComponent implements OnInit {
     this.modalDialogConfig = {};
     this.modalDialogConfig['title'] = 'Simple Modal';
     this.modalDialogConfig['type'] = 'M';
-    this.modalDialogConfig['static'] = true;
+    this.modalDialogConfig['strict'] = true;
     // this.modalDialogConfig['id'] = 'simple-ngx-modal';
   }
   openLightBoxDialog() {
-    this.staticBackgroundDialog.create({
+    this.lightBoxDialogConfig.create({
       // "src": 'assets/img-thumb.jpg'
       "src": 'assets/img.jpeg'
     });
